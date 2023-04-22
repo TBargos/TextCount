@@ -32,6 +32,7 @@ def load_data() -> list[str]:
     return asked_lines
 
 
+# Парсер для разбивки одной строки на "слова"
 def parse(lines: list[str], sep: str ='Д') -> list[list[str]]:
     accounts: list[list[str]] = []  # сюда будет записаны отсортированные данные
     man: list[str] = []  # для отдельных "слов"
@@ -54,7 +55,21 @@ def parse(lines: list[str], sep: str ='Д') -> list[list[str]]:
     return accounts
 
 
-#create_default_file()
-lines = load_data()
-accounts = parse(lines)
-pprint.pprint(accounts)
+create_default_file()  # создание файла
+lines = load_data()  # считывание файла
+accounts = parse(lines)  # парсинг данных из файла
+
+# Добавление дивидендов
+for man in accounts:
+    o = int(man[-1])
+    d = o * 50  # реализация формулы d = o * 1000 * 5%
+    man.append(str(d))
+
+# запись данных в новый файл
+with open('data_updated.csv', 'w', newline='') as temp_file:
+    for man in accounts:
+        temp = ''
+        for line in man:
+            temp += line + ' '
+        temp = temp.rstrip()  # убирает лишний пробел
+        print(temp, file=temp_file)  # отправляет подготовленную строку в файл
