@@ -65,6 +65,8 @@ for man in accounts:
     d = o * 50  # реализация формулы d = o * 1000 * 5%
     man.append(str(d))
 
+pprint.pprint(accounts)  # вывод на консоль перед записью в файл
+
 # запись данных в новый файл
 with open('data_updated.csv', 'w', newline='') as temp_file:
     for man in accounts:
